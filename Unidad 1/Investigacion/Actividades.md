@@ -1,6 +1,6 @@
 # Actividad 1 
 
-Se realizaron los ejercicios Fetch-Decode_Execute
+Se realizaron los ejercicios Fetch-Decode-Execute
 
 [Link a youtube](www.youtube.com)
 
@@ -11,3 +11,4 @@ Se realizaron los ejercicios Fetch-Decode_Execute
 **negrita**
 
 ![alt text](../Imagenes/github.png)
+
