@@ -1,6 +1,6 @@
 # Actividad 2
 
-**¿Qué sucede?** El programa suma los valores, primero guarda el valor 1 en D y llama el valor 2 en A y utilizando esto suma ambos valores, el resultado se guarda en la casilla 16, finslmente se queda en unloop entre la casilla 6 y 7 para qure el proframa finalice ahí.
+**¿Qué sucede?** El programa suma los valores, primero guarda el valor 1 en D y llama el valor 2 en A y utilizando esto suma ambos valores, el resultado se guarda en la casilla 16, finalmente se queda en un loop entre la casilla 6 y 7 para qure el proframa finalice ahí.
 
 **¿Qué valor se almacena en la dirección de memoria 16? ¿Por qué crees que es ese valor?** El valor es el numero 3, debido al proceso la suma que se reaizará será 1 que está guardado en D y 2 que fue llamado en A, la instrucción D + A = 1 + 2
 
