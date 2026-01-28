@@ -5,18 +5,18 @@ D=M        //guarda el valor que hay en 5 en D
 D=D-A      // resta el valor que está en 5 (D) con el valor que está en A que es 10
 
 @MENOR
-D;JLT      // Si el valor que está en 5 es menor entonces va a saltar a la etiqueta MENOR
+D;JLT      // Si el valor que está en 5 es menor entonces va a saltar a la etiqueta MENOR, si no va a continuar
 
-// Caso: RAM[5] >= 10
+// cuando el valor en 5 es mayor o igual a 10
 @7
-M=0        // RAM[7] = 0
-@FIN
+M=0        // guardar 0 en la dirección 7
+@FIN       // saltar a la etiqueta fin
 0;JMP
 
-(MENOR)
+(MENOR)    // etiqueta menor
 @7
-M=1        // RAM[7] = 1
+M=1        // guardar 1 en la dirección 7
 
 (FIN)
 @FIN
-0;JMP     // Bucle infinito (fin del programa)
+0;JMP     // Bucle para finallizar el programa
