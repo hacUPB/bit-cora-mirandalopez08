@@ -1,34 +1,31 @@
-// Inicializar suma = 0
 @12
-M=0
+M=0        // iniciamos la casilla 12 en 0 para asegurarnos de que el valor sea 0
 
-// Inicializar contador i = 1
 @1
-D=A
+D=A        // D = 1
 @13
-M=D        // RAM[13] será el contador i
+M=D        // en la casilla 13 se guarda el valor 1, esta casilla sera como un contador
 
-(LOOP)
+(LOOP)     // inicio del ciclo
+
 @13
 D=M        // D = i
 @6
 D=D-A      // D = i - 6
 @END
-D;JGE      // Si i >= 6, salir del ciclo
+D;JGE      // Si i >= 6, salta a END (termina el ciclo)
 
-// suma = suma + i
 @13
-D=M
+D=M        // D = i
 @12
-M=M+D
+M=M+D     // suma = suma + i
 
-// i = i + 1
 @13
-M=M+1
+M=M+1     // i = i + 1
 
 @LOOP
-0;JMP      // Volver al inicio del ciclo
+0;JMP      // Salta incondicionalmente a LOOP
 
-(END)
+(END)      // Etiqueta de fin del programa
 @END
-0;JMP      // Fin del programa (bucle infinito)
+0;JMP      // Bucle infinito para detener la ejecución
