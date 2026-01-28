@@ -13,8 +13,32 @@ Pra leer el teclado es necesario primero llamar @KBD, esto nos llevará a la cas
 
 #### Identifica un bucle en el programa y explica su funcionamiento.
 
+En el código hay varios bucles, el primero que pude identificar es el que está diseñado para que se lea si hay una tecla oprimida, en caso de que sí el código pasará a *KEYPRESSED* en ese punto nuevamente el código pasará a buscar si aún se está oprimiendo una tecla y eliminará la información para volver a *READKEYBOARD* y comenzar el ciclo nuevamente
+El código mostrado a continuación no es el código completo si no una versión corta poara ejemplificar el caso mencionado anteriormente 
 ```asm
+(READKEYBOARD) // etiqueta que sirve para nombrar una parte del código
+@KBD 
+D=M
+@KEYPRESSED
+D;JNE // Jump if not equal, en este caso si se está oprimiendo una tecla va a saltar a KEYPRESSED
 
 
+(KEYPRESSED) // etiqueta que sirve para nombrar una parte del código
+@i
+D=M
+@KBD
+D=D-A
+@READKEYBOARD
+D;JGE // cuando se termine de presionar la tecla, el código volverá a buscar si se está oprimiento otra tecla
 ```
 #### Identifica una condición en el programa y explica su funcionamiento.
+
+En este fragmento del código hay una condicion establecida para deterinar si una tecla está siendo oprimida o no, en este caso se realiza llamando al teclado y viendo que valor se encuentra en *M* en este caso si el valor es 0 significa que ninguna tecla está siendo presionada, pero si el valor es diferente de 0 una tecla sí está siendo presionada y por ende saltará a KEYPRESSED
+
+```asm
+(READKEYBOARD) // etiqueta que sirve para nombrar una parte del código
+@KBD 
+D=M
+@KEYPRESSED
+D;JNE // Jump if not equal, en este caso si se está oprimiendo una tecla va a saltar a KEYPRESSED
+```
