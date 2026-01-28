@@ -18,7 +18,7 @@ D;JGE      // Si i >= 6, salta a END (termina el ciclo)
 @13
 D=M        // D = i
 @12
-M=M+D     // suma = suma + i
+M=D+M     // suma = suma + i
 
 @13
 M=M+1     // i = i + 1
