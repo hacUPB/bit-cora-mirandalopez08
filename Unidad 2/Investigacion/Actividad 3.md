@@ -16,3 +16,8 @@ if KBD = 100
     RAM[20496] = 0
     RAM[20497] = -1
 go to READ KEYBOARD
+
+![alt text](image.png)
+
+intente ayudarme con ia y aunque el codigo si funcionaba 
+![alt text](image-1.png)
