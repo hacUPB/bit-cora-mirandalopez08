@@ -17,7 +17,12 @@ if KBD = 100
     RAM[20497] = -1
 go to READ KEYBOARD
 
-![alt text](image.png)
+![alt text](../Imagenes/ia1.png)
 
-intente ayudarme con ia y aunque el codigo si funcionaba 
-![alt text](image-1.png)
+intente ayudarme con ia y aunque el codigo si funcionaba no lo entendía tan bien 
+![alt text](../Imagenes/ia2.png)
+
+Decidí leer el código y con ayuda de un compañero que me explicó, comprendí los conceptos y cambié algunas partes del código para pode comprenderlo mejor
+
+![alt text](../Imagenes/act3.png)
+![alt text](../Imagenes/act3.2.png)
