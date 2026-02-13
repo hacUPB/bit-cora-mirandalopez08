@@ -26,3 +26,45 @@ Decidí leer el código y con ayuda de un compañero que me explicó, comprendí
 
 ![alt text](../Imagenes/act3.png)
 ![alt text](../Imagenes/act3.2.png)
+
+Código en csharp 
+```
+namespace SComputacionales
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int posicionX = 0;      // posición inicial
+            int longitud = 20;      // largo de la línea
+
+            Console.CursorVisible = false;
+
+            while (true)
+            {
+                Console.Clear();
+
+                // Dibujar línea horizontal
+                Console.SetCursorPosition(posicionX, 0);
+                for (int i = 0; i < longitud; i++)
+                {
+                    Console.Write("█");
+                }
+
+                // Leer tecla sin mostrarla en pantalla
+                ConsoleKeyInfo tecla = Console.ReadKey(true);
+
+                if (tecla.KeyChar == 'd')
+                {
+                    posicionX++;   // mover derecha
+                }
+                else if (tecla.KeyChar == 'i')
+                {
+                    posicionX--;   // mover izquierda
+                }
+            }
+        }
+    }
+}
+
+```
