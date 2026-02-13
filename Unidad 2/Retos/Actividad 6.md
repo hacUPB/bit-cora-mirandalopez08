@@ -1,0 +1,1 @@
+Inicialmente intenté hacer el programa con un ciclo, pero no supe como cintinuar realizando el programa porwur rl profesor nos dijo que deberiamos poder sumar cualquier numero por lo que decidí hacerlo uno por uno
