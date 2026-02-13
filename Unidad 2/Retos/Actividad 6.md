@@ -1,4 +1,4 @@
-Inicialmente intenté hacer el programa con un ciclo, pero no supe como cintinuar realizando el programa porwur rl profesor nos dijo que deberiamos poder sumar cualquier numero por lo que decidí hacerlo uno por uno, este es el programa que intenté inicialmente pero no lograba probarlo porque tenía un error
+Inicialmente intenté hacer el programa con un ciclo, pero no supe como cintinuar realizando el programa porwur rl profesor nos dijo que deberiamos poder sumar cualquier numero por lo que decidí hacerlo uno por uno, este es el programa que intenté inicialmente pero no lograba probarlo porque tenía un error, el programa de nand2tetris no parece funionar en mi computador pues saca errores que no están pero pesí ayuda para revisar el código a inteligencia artificial y corregir posibles errores y de esta manera pude hacerlo
 ```
 @100
 D=A 
