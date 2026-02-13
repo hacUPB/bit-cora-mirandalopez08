@@ -75,7 +75,7 @@ A=D+M
 D=M       
 
 @sum
-M=M+D
+M=D+M
 
 @j
 M=M+1
