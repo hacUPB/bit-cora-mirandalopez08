@@ -1,4 +1,4 @@
-//Código 1
+// Programa 1
 // a = 10
 @10
 D=A
@@ -18,7 +18,13 @@ D=A
 A=M
 M=D
 
-//Código 2
+// Fin del programa
+(END)
+@END
+0;JMP
+
+// Programa 2
+
 // a = 10
 @10
 D=A
@@ -44,6 +50,7 @@ D=M
 @b
 M=D
 
-
+// Fin del programa
+(END)
 @END
 0;JMP
