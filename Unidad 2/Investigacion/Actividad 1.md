@@ -6,3 +6,22 @@
 
 ## Pintar 3 pixeles del mismo registro, código 2
 ![alt text](../Imagenes/pintar3pxls.png)
+
+Código en C sharp
+
+```
+namespace SComputacionales
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+            Console.Write("█");  // Simula un pixel negro
+
+            Console.ReadKey();
+        }
+    }
+}
+```
