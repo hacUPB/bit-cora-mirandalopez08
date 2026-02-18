@@ -133,3 +133,25 @@ void swapPorValor(int a, int b) {
 	cout << "Dentro de modificarPorValor, valor modificado de b: " << b << endl;
 }
 ```
+
+# Actividad 3
+
+Revisa de nuevo el programa anterior y construye tu propio mapa de memoria indicando en qué parte del mapa se ubican las variables y constantes globales, locales, estáticas y de la memoria dinámica y en qué parte del mapa se encuentran las funciones y el mensaje de solo lectura.
+
+|variables globales y estáticas  | 
+|--------------------------------|
+|int global_inicializada |
+|int global_no_inicializada|
+|static int var_estatica |
+
+|Heap | 
+|--------------------------------|
+|int* arr = new int[tam]|
+
+|stack | 
+|--------------------------------|
+|int a = 10;|
+|int b = 20;|
+|int c = suma(a, b);|
+|int tamArray = 10;|
+|int* arrayHeap = crearArrayHeap(tamArray);|
