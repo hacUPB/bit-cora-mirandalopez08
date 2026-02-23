@@ -36,4 +36,7 @@ Aqui se crea un arreglo, inicialmente se creauna variable local que determina el
 
 # Actividad 5 
 1. Explica qué ocurre al copiar un objeto en C++ y en C#. ¿Qué diferencias encuentras?
+en **C#** el código crea el original, le da sus atributos, luego estblece que la copia es igual al original y cuando se imprime la copia se le da sus valores orrespondientes pero cuando se imprime el original uevamente todos sus valores se modificaron a los de la copia. Por otra parte en **C++** se crea el objeto original y se le asignan sus respectivas variables, luego se crea una referenciacion a este mismo objeto, se crea el objeto de la copia y se modifica la información, pero al imprimir el original los valores iniciales se mantienen en el mismo, se está creando una verdadera copia del objeto y no modificando los valores iniciales como en *C#* pero con el punto p que es la referenciacion a el objeto original si se le atribuyen valores a este mismo se modificarán los valores originales.
+
 2. ¿Qué es `copia` en C++ y en C#? ¿Es una copia independiente de `original`?
+En **C++** una copia referencia al objeto original, le puede atribuir nuevas características o valores pero al final es independiente del objeto original, por otra parte en **C#** la copia es entregarle los valores del original a una copia y permitir que se modifiquen los valores de este mismo en un "nuevo objeto" pero igualmente los valores del original también van a cambiar.
