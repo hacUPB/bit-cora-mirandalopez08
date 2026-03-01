@@ -215,7 +215,46 @@ Al igual que en el anterior se crean variables que estarán almacenadas en el he
 10, al ser una variable estática los valores irán aumentando y no se borrarán cada que empiece el for.
 
 **3. Propuesta de solución: escribe una versión corregida de la clase Enemigo que solucione los problemas identificados. Explica brevemente cada cambio que hiciste.**
+```cpp
+#include <iostream>
+using namespace std;
 
+class Enemigo {
+public:
+    static int totalEnemigos;
+    int vida;
+    int* armas;
+
+    Enemigo(int v) : vida(v) {
+        totalEnemigos++;
+        armas = new int[3]; 
+        armas[0] = 10;
+        armas[1] = 15;
+        armas[2] = 20;
+    }
+
+    ~Enemigo() {
+        delete[] armas;
+    }
+};
+int Enemigo::totalEnemigos = 0;
+
+void crearEscuadron() {
+    for (int i = 0; i < 5; i++) {
+
+        Enemigo soldado(100);
+        soldado.vida -= 10;
+    }
+    cout << "Escuadron creado. Total enemigos: " << Enemigo::totalEnemigos << endl;
+}
+
+int main() {
+    crearEscuadron();
+    crearEscuadron(); 
+    return 0;
+}
+```
+Solo pude encontrar el error de que la memoria no se está borrando, por lo que cree la clase para borrarlo
 
 **Parte 3: reflexión metacognitiva**
 
