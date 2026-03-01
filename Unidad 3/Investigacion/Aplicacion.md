@@ -33,6 +33,7 @@ pStack es un objeto, ene este caso le está dando valores a una función que ya 
 pHeap es una referencia, es una variable que guarda una dirección de memoria. Hace referencia a un objeto de tipo Punto que fue creado en el Heap. 
 
 **4. Observa en Memory1 (Debug->Windows->Memory->Memory1) el contenido de la dirección de memoria de `pHeap`, recuerda escribir en la entrada de texto de Memory1 la dirección de memoria de `&pHeap` y presionar Enter. Compara el contenido de memoria con el contenido de `pHeap` en la pestaña de Locals (Debug->Windows->Locals). ¿Qué observas? ¿Qué significa esto?**
+Al inspeccionar `&pHeap` en la ventana de memoria, se evidencia que el contenido de esa dirección no son los datos del objeto (50 y 60), sino la **dirección física** donde el objeto reside en el Heap, lo cual coincide con el valor que el depurador muestra en la pestaña de Locals; esto significa que `pHeap` es simplemente un **puntero** almacenado en el **Stack** que actúa como un mapa o intermediario, confirmando que en C++ existe una separación física entre la variable que manejas en tu código y el objeto real que vive en la memoria dinámica, a diferencia de un objeto en el stack donde los datos estarían almacenados directamente en esa ubicación.
 
 # Actividad 8
 
@@ -70,8 +71,11 @@ En este caso es un paso por puntero, se llama el espacio de memoria donde está 
 Los miembros estáticos son muy utiles cuando es necesario poder ir modoficando el vaalor de una variable, por ejemplo en unc ontador es necesario que cada que aumente esa información se mantenga guardada en la variable, por otra parte los valores de instancia son bastante útiles cuando quiero conservar una acción, por ejemplo en el código en la función incrementar es bastante útil que el valor almacenado en la variable que no es estática vuelva a su valor original al salir de la función pues esto nos permite repetir el proceso de sumar 1 al valor que entre sin importar cual sea. El valor de la variable estática se mantendrá por lo que tiene como ventaja que es posible ir modificando su valor y que vaya guardandolo, la desventaja será que si quiero volver al original tendrpia que realizar un proceso largo para borrar las acciones realizadas antes, mientras que el de la variable que no es estática volverá a su forma original y se borrará la información que guarda, la ventaja es que si necesito conservar el valor original será bastante útil pues lo puedo usar como un numero fijo, la desventaja es que no conservaré valores que use dentro de una función con esta variable.
 
 **2. En el programa, en qué segmento de memoria se están almacenando c1, c2, c3 y Contador::total? Ten especial cuidado con la respuesta que das para el caso de c3, piensa de nuevo, qué es c3 y qué está almacenando. Ahora, responde de nuevo, en qué segmento de la memoria se está almacenando c3 y en qué segmento de la memoria se está almacenando el objeto al que apunta c3.**
+Los objetos *c1* y *c2*, junto con la variable puntero *c3*, se almacenan en el **Stack** por ser variables locales del `main`, el objeto real con valor 15 al que apunta `c3` se almacena en el **Heap** debido al uso de `new`, mientras que el miembro estático *Contador::total* reside en el **Segmento de Datos** (memoria estática), lo que explica por qué este último no desaparece ni se duplica con cada instancia, sino que permanece en una ubicación fija accesible para todos los objetos sin importar en qué segmento se encuentren ellos.
 
-# Actividad 9
+¿Te gustaría que viéramos qué sucede con la memoria del Heap si omitieras la instrucción `delete c3`?
+
+# Actividad 10
 
 **1. Explica el ciclo de vida de un objeto en el stack versus uno en el heap.**
 Un objeto creado en el stack se va a crear, se le asignará su información correspondiente y finalmente cuando ya no vaya a ser usado se borrará de manera automática liberando el espacio de memoria que estaba ocupando, por otra parte un objeto en el heap va a ser creado, realizará las acciones necesarias y solo se borrará cuando se le indique, o sea solo puede ser borrado manualmente, y si no es borrado se mantendrá ahi. 
@@ -90,6 +94,39 @@ En este caso si es posible utilizarlo por fuera de los corchetes pero también p
 el objeto `pBloque` está almacenado en el stack, será una variable que cumple su propósito y cuando termine se borrará inmediatamente, por otra parte `pBloque2` está creado utilizando *new*, y está declarado como punto* por lo que será una referencia a un objeto y no directamente el objeto, esto significa que debe ser borrado manualmente y no se borrará automáticamente.
 
 **2. ¿En qué parte de la memoria se almacena `pBloque2`?**
-Está almacenado en el stack, pues es una variable local -> ```pBloque2 = new Punto(500, 600); ``` sin embargo el valor que está referenciando o sea new punto si estará almacenado en el el heap, por esto no se borrará inmediatamente
+Está almacenado en el stack, pues es una variable local que sirve como puntero -> ```pBloque2 = new Punto(500, 600); ``` 
 
 **3. ¿En qué parte de la memoria se almacena el objeto al que apunta `pBloque2`?**
+el valor que está referenciando o sea new punto si estará almacenado en el el heap, por esto no se borrará inmediatamente
+
+# Actividad 
+1. Diagnóstico del problema (análisis):
+    ◦ Compila y ejecuta el código.
+    ◦ Identifica y explica con detalle al menos dos errores críticos de gestión de memoria en la clase Personaje y su uso en simularEncuentro.
+    ◦ Para cada error, describe:
+        ▪ ¿Cuál es el error?
+        ▪ ¿Por qué ocurre? Explica el mecanismo a nivel de memoria (stack, heap, punteros)
+        ▪ ¿Cuál es su consecuencia?
+2. Solución y refactorización (síntesis y creación):
+    ◦ Re-escribe la clase Personaje para que sea segura en cuanto a memoria. Debes utilizar los conocimientos adquiridos en esta unidad y por tanto tu solución no debería usar la Regla de los tres que probablemente sea la solución que te ofrezca una IA.
+    ◦ Presenta el código completo de tu clase Personaje corregida.
+3. Justificación de la Solución:
+Explica por qué cada uno de los cambios que añadiste resuelven los problemas que diagnosticaste.
+
+1. 
+**¿Cuál es el error?** En la clase personaje a la variable estadisticas se le asigna una referenciacion a un arreglo, que se crea utilizando new, por lo que esta se almacena en el heap y nunca es borrada, aunque el objeto heroe se borre, estadísticas debe ser borrada manualmente
+
+**¿Por qué ocurre? Explica el mecanismo a nivel de memoria (stack, heap, punteros)**
+Cuando el objeto heroe se crea dentro de la función simularEncuentro, la variable estadisticas (un puntero en el Stack) guarda la dirección de un bloque de memoria en el Heap. POr esto debe existir una función delete que borre la informacion dentro de estadisticas
+
+**¿Cuál es su consecuencia?**
+La informacion almacenada nunca se borra y continua ocupando espacio en la memoria
+
+**¿Cuál es el error?** Al crear la copia no se está haciendo una referenciacion o paso por puntero, la copia apunta a el mismo lugar de memoria que la original
+
+**¿Por qué ocurre? Explica el mecanismo a nivel de memoria (stack, heap, punteros)**
+esto provoca que no haya una diferenciacion entre la copia y la original por lo que una modoficacion en cualquiera de los dos afectará la informacion de la original, no es una copia real 
+
+**¿Cuál es su consecuencia?**
+Si se modifica una se modificarán las dos, y si se borra una se borrarán las dos, por lo que no tendría sentido crear una copia que no está haciendo nada.
+
