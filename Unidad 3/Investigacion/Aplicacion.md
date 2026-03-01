@@ -130,3 +130,101 @@ esto provoca que no haya una diferenciacion entre la copia y la original por lo 
 **¿Cuál es su consecuencia?**
 Si se modifica una se modificarán las dos, y si se borra una se borrarán las dos, por lo que no tendría sentido crear una copia que no está haciendo nada.
 
+2. 
+```cpp
+#include <iostream>
+#include <string>
+
+class Personaje {
+public:
+    std::string nombre;
+    int* estadisticas;
+
+    Personaje(std::string n, int vida, int ataque, int defensa) {
+        nombre = n;
+        estadisticas = new int[3];
+        estadisticas[0] = vida;
+        estadisticas[1] = ataque;
+        estadisticas[2] = defensa;
+        std::cout << "Constructor: nace " << nombre << std::endl;
+    }
+
+    ~Personaje() {
+        if (estadisticas != nullptr) {
+            delete[] estadisticas; 
+            std::cout << "Destructor: memoria de " << nombre << " liberada." << std::endl;
+        }
+    }
+
+    void imprimir() {
+        std::cout << "Personaje " << nombre << " [Vida: " << estadisticas[0]
+            << ", ATK: " << estadisticas[1] << ", DEF: " << estadisticas[2] << "]" << std::endl;
+    }
+};
+
+void simularEncuentro() {
+    std::cout << "\n--- Iniciando encuentro ---" << std::endl;
+
+    Personaje heroe("Aragorn", 100, 20, 15);
+    heroe.imprimir();
+
+    Personaje copia = heroe;
+
+    copia.nombre = "copia";
+    copia.estadisticas = new int[3]; 
+
+    copia.estadisticas[0] = 10;
+    copia.estadisticas[1] = 200;
+    copia.estadisticas[2] = 300;
+
+    copia.imprimir();
+    heroe.imprimir(); 
+
+    std::cout << "\nSaliendo del encuentro..." << std::endl;
+}
+
+int main() {
+    simularEncuentro();
+    std::cout << "\nSimulacion terminada." << std::endl;
+    return 0;
+}
+```
+3. los cambios fueron los siguientes, para crear la copia tuve que crear un nuevo objeto pues la copia que se estaba creando no estaba guardandose en un nuevo lugar, por otra parte también fue necesario crear una manera de borrar tanto los datos de la origina como los de la copia en la parte de estadisticas pues ambos estaban quedandose en la memoria despues de que el programa se acabara
+
+# Actividad 11
+
+Parte 1: recuperación de conocimiento (Retrieval Practice)
+**1. Explica con tus propias palabras qué es el stack y qué es el heap en C++.**
+El stack almacena variables que serán eliminadas una vez cumplan con su función mientras que el heap almacena variables creadas para qeu solo puedan ser borradas manualmente
+
+**2. Describe las tres formas de pasar parámetros a una función en C++ (valor, referencia y puntero). Para cada una, explica qué sucede en memoria y cuándo usarías cada método.**
+por valor se crea una copia al entrar a la funcion y esta se modifica pero al salir la copia desaparece y la original no ha cambiado, referencia y puntero son similares, ambas afectan a la variable original, por referencia se hace una referenciacion al objeto original y por puntero se obtiene la direccion de memoria del objeto original y se modifica el mismo
+
+**3. ¿Qué diferencia hay entre una variable local, una variable global y una variable local estática? ¿En qué segmento del mapa de memoria se almacena cada una?**
+una variable local está declarada dentro de una funcion y solo existe dentro de ella, lo que significa que no puede llamarse por fuera, una variable  local es una variable a la que todo el código puede acceder y hacer modificaciones, las variables estáticas pueden ser modificadas y conservarán el nuevo valor cada que se modifiquen mientras que las que no son estáticas volverán a su valor original. Las variable globales y estáticas se almacenan en variables estáticas y globales, las locales están en el stack 
+
+**4. Explica qué es un objeto en C++ desde la perspectiva de memoria. ¿Dónde se almacenan los miembros de instancia y dónde los miembros estáticos?**
+Un objeto es una instanciacion de una clase, lo que significa que hasta que un objeto no instancie una clase esta no ocupará un espacio en la memoria. los miembros de instancia se guardan con el objeto, depende de si este está en el heap o en el stack y los miembros estáticos se guardan en variables estáticas y globales.
+
+**Parte 2: transferencia y análisis de situación nueva**
+
+**1. Análisis de problemas: identifica al menos dos problemas serios en este código relacionados con el manejo de memoria. Explica por qué cada uno es problemático.**
+Al igual que en el anterior se crean variables que estarán almacenadas en el heap pero no se están borrando manualente por lo que permanecen en la memoria. 
+
+**2. Predicción de comportamiento: ¿Qué valor mostrará totalEnemigos después de ejecutar el programa? ¿Por qué ocurre esto?**
+10, al ser una variable estática los valores irán aumentando y no se borrarán cada que empiece el for.
+
+**3. Propuesta de solución: escribe una versión corregida de la clase Enemigo que solucione los problemas identificados. Explica brevemente cada cambio que hiciste.**
+
+
+**Parte 3: reflexión metacognitiva**
+
+**1. De todos los conceptos que exploraste en esta unidad (stack vs heap, paso de parámetros, ciclo de vida de objetos, etc.), ¿Cuál consideras que es el más crítico para evitar errores en programas reales? ¿Por qué?** 
+Desde mi punto de vista el paso de parámetros pues es necesario saber en que momentos usar referenciaciones, punteros y en que momento hacer copias normales, si no podriamos terminar afectando el código o las variables.
+
+**2. ¿Cómo cambió tu comprensión sobre lo que realmente es un “objeto” después de comparar C++ con C#? ¿Qué implicaciones prácticas tiene esta diferencia?**
+Por fin comprendí completamente que un objeto es una referencia de una clase que le asigna parámetros y que ocupará el espacio en la memoria.
+
+
+**3. Si tuvieras que explicar a un compañero de semestres anteriores por qué es importante entender la gestión de memoria en programación, ¿Qué le dirías en máximo 3 oraciones?**
+Es importante debido a que al saber los espacios de memorias utilizados es posible realizar modificaciones o comprender el comportamiento de los objetos, además permite optimizar las acciones para no gastar mucha memoria
