@@ -1,0 +1,92 @@
+# =========================
+# Build results
+# =========================
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+out/
+
+# =========================
+# Visual Studio files
+# =========================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# C# / .NET
+# =========================
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.cache
+*.config.user
+*.generated.cs
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# =========================
+# C++ compiled files
+# =========================
+*.o
+*.obj
+*.so
+*.a
+*.lib
+*.dylib
+*.exp
+*.idb
+*.pdb
+*.ilk
+*.tlog
+*.lastbuildstate
+
+# =========================
+# CMake (si usas CMake)
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# =========================
+# Temporary / system files
+# =========================
+*.log
+*.tmp
+*.temp
+*.swp
+*.DS_Store
+Thumbs.db
+
+# =========================
+# Rider / VS Code (opcional)
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# Test results
+# =========================
+TestResults/
+*.trx
+*.coverage
+
+# =========================
+# Generated files
+# =========================
+Generated/
