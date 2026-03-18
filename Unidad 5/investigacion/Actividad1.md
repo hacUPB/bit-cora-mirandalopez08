@@ -16,7 +16,7 @@ un ejemplo puede ser crear una clase padre que sea **mascotas** con característ
 
 **3. ¿Qué es el polimorfismo? Describe con tus palabras qué significa que un código sea “polimórfico”.**
 
-El polimorfismo es la capacidad de una sección de el código de responder a diferentes llamados en el mismo, siguiendo con el ejemplo anterior si tengo la clase mascotas y tengo perro y gato, si creo la función *hacer sonido*, cuando la llame en perro va a hacer *guau* y cuando llame gato va a hacer *miau*
+El polimorfismo es la capacidad de una subclase que hereda de una clase más general de responder de forma diferente al mismo método, siguiendo con el ejemplo anterior si tengo la clase mascotas y tengo perro y gato, si creo la función *hacer sonido*, cuando la llame en perro va a hacer *guau* y cuando llame gato va a hacer *miau*
 
 ## Parte 2: alaisis del código de csharp
 
@@ -90,3 +90,17 @@ Como mencioné anteriormente creo que al recorrer el arreglo fig le asignará qu
 
 **3. La barrera del encapsulamiento: ¿Cómo crees que el compilador logra que no puedas acceder a un miembro private desde fuera de la clase? ¿Es algo que se revisa cuando escribes el código, o es una protección que existe mientras el programa se ejecuta? ¿Por qué piensas eso?**
 Pienso que es una protección que existe desde que se corre el código, inmediatamente el acceso a esta clase se bloquea y no es posible editarla
+
+
+## Actividad 2
+![alt text](image.png)
+![alt text](image-1.png)
+
+Básicamente el código crea inicialmente la particula que saldrá desde la mitad de la pantalla, especifica su duración, su movimiento y como acabará, en esta parte se crea la clase `ExplosionParticle` que será la clase padre de 3 subclases que serán: *CircularExplosion, RandomExplosion, StarExplosion*, estas tres clases heredarán las características de `ExplosionParticle` pero también tendrán ciertas especificaciones párticulares de cada clase, todo esto pasa en el **ofApp.h**
+
+Luego en el **ofApp.cpp** el código llama a estas subclases en una función que se llama cuando las partículas deben explotar, también las borrará cuando terminen, se crearán las particulas en la parte inferior con leves variaciones en su posición, se establece un tiempo de vida y un color random
+
+## Actividad 4
+
+antes de quitar las comentadas si es posible cambiar el valor de las variables
+![alt text](image-3.png)
