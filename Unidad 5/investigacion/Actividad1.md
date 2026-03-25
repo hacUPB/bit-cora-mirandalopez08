@@ -102,5 +102,24 @@ Luego en el **ofApp.cpp** el código llama a estas subclases en una función que
 
 ## Actividad 4
 
-antes de quitar las comentadas si es posible cambiar el valor de las variables
+Antes de quitar las comentadas si es posible cambiar el valor de las variables
 ![alt text](image-3.png)
+
+No es posible modificar los valores directamente porque son variables privadas y protegidas por lo que habrá errores de compilacion 
+![alt text](image-4.png)
+
+No es posible imprimir los datos aunque se haya hecho una variable pública con el objeto porque la información será privada, por ende no será posible 
+![alt text](image-5.png)
+
+Al crear reinterpret es posible crear una referenciación a las posiciones de los objetos y gracias a estas es posible imprimir los datos 
+![alt text](image-6.png)
+
+## Actividad 5
+
+**Concepto de herencia**: la herencia es otro concepto fundamental en la programación orientada a objetos. Observa de nuevo en ofApp.h la clase `CircularExplosion`. Observa que esta clase hereda de la clase `ExplosionParticle` que a su vez hereda de la clase `Particle`.
+
+Captura de nuevo la memoria que ocupa el objeto `CircularExplosion` compara la jerarquía de clases con los campos en memoria del objeto. ¿Qué puedes observar? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?
+
+¿Cómo se implementa la herencia en C++?
+
+C++ permite hacer algo que C# no: herencia múltiple. Realiza un experimento que te permita ver cómo se objeto en memoria cuya clase base tiene herencia múltiple.
