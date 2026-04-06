@@ -1,4 +1,8 @@
-# Actividad 1
+# Unidad 6
+
+## Actividad 1
+
+### Parte 1
 
 **1. ¿Qué es el encapsulamiento para ti? Describe una situación en la que te haya sido útil o donde hayas visto su importancia.**
 
@@ -18,7 +22,7 @@ un ejemplo puede ser crear una clase padre que sea **mascotas** con característ
 
 El polimorfismo es la capacidad de una subclase que hereda de una clase más general de responder de forma diferente al mismo método, siguiendo con el ejemplo anterior si tengo la clase mascotas y tengo perro y gato, si creo la función *hacer sonido*, cuando la llame en perro va a hacer *guau* y cuando llame gato va a hacer *miau*
 
-## Parte 2: alaisis del código de csharp
+### Parte 2: alaisis del código de csharp
 
 **Encapsulamiento:**
 
@@ -78,7 +82,7 @@ public static void Main()
 ```
 Debido que al recorrer el arreglo creado la función dibujar se va a encontrar con las figuras que están definidas, en la posición 0 se encontrará con un circulo, así que irá a la clase circulo, revisará como debe ejecutarse y luego pasará a la siguiente posición del arreglo, que tendrá una figura diferente. 
 
-## Parte 3: hipótesis sobre la implementación
+### Parte 3: hipótesis sobre la implementación
 
 **1. Memoria y herencia: cuando creas un objeto Rectangulo, este tiene Base, Altura y también Nombre. ¿Cómo te imaginas que se organizan esos tres datos en la memoria del computador para formar un solo objeto?**
 
@@ -99,6 +103,13 @@ Pienso que es una protección que existe desde que se corre el código, inmediat
 Básicamente el código crea inicialmente la particula que saldrá desde la mitad de la pantalla, especifica su duración, su movimiento y como acabará, en esta parte se crea la clase `ExplosionParticle` que será la clase padre de 3 subclases que serán: *CircularExplosion, RandomExplosion, StarExplosion*, estas tres clases heredarán las características de `ExplosionParticle` pero también tendrán ciertas especificaciones párticulares de cada clase, todo esto pasa en el **ofApp.h**
 
 Luego en el **ofApp.cpp** el código llama a estas subclases en una función que se llama cuando las partículas deben explotar, también las borrará cuando terminen, se crearán las particulas en la parte inferior con leves variaciones en su posición, se establece un tiempo de vida y un color random
+
+## Actividad 3
+
+Memoria de circular explotion
+![alt text](image-7.png)
+
+Muestra en donde está guard
 
 ## Actividad 4
 
@@ -123,3 +134,178 @@ Captura de nuevo la memoria que ocupa el objeto `CircularExplosion` compara la
 ¿Cómo se implementa la herencia en C++?
 
 C++ permite hacer algo que C# no: herencia múltiple. Realiza un experimento que te permita ver cómo se objeto en memoria cuya clase base tiene herencia múltiple.
+
+## Actividad 6 
+
+**¿Qué puedes observar? ¿Qué información te proporciona el depurador?**
+
+Al ejecutar el bucle y analizarlo con el depurador, se observa que aunque el contenedor almacena punteros de tipo `Particle*`, el método `update(dt)` que se ejecuta no corresponde siempre a la clase base. En su lugar, el flujo del programa entra en la implementación específica de cada clase derivada (por ejemplo, partículas de fuego, humo, etc.). Esto evidencia que la llamada al método se resuelve dinámicamente en tiempo de ejecución según el tipo real del objeto.
+
+El depurador permite ver información relevante como la dirección en memoria del objeto, su tipo dinámico real y, en muchos casos, la presencia de un puntero interno (vptr) que apunta a la tabla de funciones virtuales (vtable). También se puede seguir la traza de ejecución y comprobar que distintas iteraciones del bucle invocan distintas versiones de `update()`. En conjunto, esto demuestra que el comportamiento no depende del tipo del puntero, sino del tipo concreto del objeto al que apunta.
+
+
+**🧐🧪✍️ Dibujo y explicación del polimorfismo en tiempo de ejecución. ¿Qué puedes concluir?**
+
+El polimorfismo en tiempo de ejecución se puede representar como una estructura donde cada objeto contiene un puntero oculto (vptr) hacia una tabla de funciones virtuales (vtable) propia de su clase. Aunque todos los objetos sean accedidos mediante punteros del mismo tipo base, cada uno mantiene internamente una referencia a su propia vtable, donde están las direcciones de sus métodos sobrescritos.
+
+Cuando se invoca `update(dt)`, el programa no llama directamente a una función fija, sino que primero accede al vptr del objeto, luego a su vtable, y finalmente ejecuta la función correcta según la clase real. La conclusión principal es que el polimorfismo permite desacoplar el código: se puede trabajar con una interfaz común (la clase base) mientras el comportamiento concreto se decide dinámicamente en ejecución. Esto hace el sistema más flexible y extensible.
+
+
+**🧐🧪✍️ ¿Qué relación existe entre los métodos virtuales y el polimorfismo?**
+
+Los métodos virtuales son el mecanismo fundamental que permite implementar el polimorfismo en tiempo de ejecución en C++. Al declarar un método como `virtual`, se indica al compilador que su resolución no debe hacerse en tiempo de compilación, sino en tiempo de ejecución mediante despacho dinámico. Esto habilita que una misma llamada a función pueda tener múltiples comportamientos dependiendo del tipo real del objeto.
+
+En este sentido, el polimorfismo es el concepto (la capacidad de tener múltiples comportamientos bajo una misma interfaz), mientras que los métodos virtuales son la herramienta que lo hace posible. Sin métodos virtuales, las llamadas a funciones se resolverían estáticamente, eliminando la posibilidad de que diferentes objetos respondan de forma distinta a la misma invocación.
+
+## Actividad 7
+
+**OfApp.h:**
+```cpp
+class SpiralParticle : public Particle {
+private:
+	glm::vec2 center;
+	float angle;
+	float radius;
+	float angularSpeed;
+	float radialSpeed;
+	float lifetime;
+	float age;
+	ofColor color;
+
+public:
+	SpiralParticle(const glm::vec2& c)
+		: center(c), angle(0), radius(5),
+		angularSpeed(ofRandom(2, 5)),
+		radialSpeed(ofRandom(20, 40)),
+		lifetime(ofRandom(1.5, 3.0)),
+		age(0) {
+		color.setHsb(ofRandom(255), 200, 255);
+	}
+
+	void update(float dt) override {
+		angle += angularSpeed * dt;
+		radius += radialSpeed * dt;
+		age += dt;
+	}
+
+	void draw() override {
+		glm::vec2 pos = center + glm::vec2(cos(angle), sin(angle)) * radius;
+		ofSetColor(color);
+		ofDrawCircle(pos, 4);
+	}
+
+	bool isDead() const override {
+		return age >= lifetime;
+	}
+};
+
+class FallingParticle : public Particle {
+private:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	float age;
+	float lifetime;
+	ofColor color;
+
+public:
+	FallingParticle(const glm::vec2& pos)
+		: position(pos),
+		velocity(ofRandom(-50, 50), ofRandom(-200, -100)),
+		age(0),
+		lifetime(ofRandom(2.0, 4.0)) {
+		color.setHsb(ofRandom(255), 180, 255);
+	}
+
+	void update(float dt) override {
+		velocity.y += 9.8f * 50 * dt; // gravedad
+		position += velocity * dt;
+		age += dt;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, 6);
+	}
+
+	bool isDead() const override {
+		return age >= lifetime || position.y > ofGetHeight();
+	}
+};
+
+```
+
+```cpp
+class RingExplosion : public ExplosionParticle {
+private:
+	float expansionRate;
+
+public:
+	RingExplosion(const glm::vec2& pos, const ofColor& col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.2f, 5),
+		expansionRate(ofRandom(80, 150)) {
+	}
+
+	void update(float dt) override {
+		ExplosionParticle::update(dt);
+		size += expansionRate * dt; // el radio crece
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofNoFill();
+		ofDrawCircle(position, size);
+		ofFill();
+	}
+};
+```
+
+**OfApp.c:**
+
+```cpp
+if (explosionType == 0) {
+				particles.push_back(new CircularExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+}
+else if (explosionType == 1) {
+				particles.push_back(new RandomExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+}
+else if (explosionType == 2) {
+				particles.push_back(new StarExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+}
+else {
+				particles.push_back(new RingExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+}
+``` 
+
+```cpp
+void ofApp::keyPressed(int key) {
+
+	// Rising (ya existente)
+	if (key == 'r') {
+		createRisingParticle();
+	}
+
+	// Spiral
+	if (key == '1') {
+		glm::vec2 pos(ofRandomWidth(), ofRandomHeight());
+		particles.push_back(new SpiralParticle(pos));
+	}
+
+	// Falling
+	if (key == '2') {
+		glm::vec2 pos(ofRandomWidth(), 0); // desde arriba
+		particles.push_back(new FallingParticle(pos));
+	}
+
+	// Muchas partículas (test)
+	if (key == ' ') {
+		for (int i = 0; i < 100; i++) {
+			createRisingParticle();
+		}
+	}
+
+	// Screenshot
+	if (key == 's') {
+		ofSaveScreen("screenshot_" + ofToString(ofGetFrameNum()) + ".png");
+	}
+}
+```

@@ -15,7 +15,7 @@ void ofApp::update() {
 	for (int i = particles.size() - 1; i >= 0; i--) {
 		// Si la partícula debe explotar, generamos nuevas explosiones        
 		if (particles[i]->shouldExplode()) {
-			int explosionType = (int)ofRandom(3);
+			int explosionType = (int)ofRandom(4);
 			// 0: Circular, 1: Random, 2: Star            
 			int numParticles = (int)ofRandom(20, 30);
 			for (int j = 0; j < numParticles; j++) {
@@ -25,8 +25,11 @@ void ofApp::update() {
 				else if (explosionType == 1) {
 					particles.push_back(new RandomExplosion(particles[i]->getPosition(), particles[i]->getColor()));
 				}
-				else {
+				else if (explosionType == 2) {
 					particles.push_back(new StarExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+				}
+				else {
+					particles.push_back(new RingExplosion(particles[i]->getPosition(), particles[i]->getColor()));
 				}
 			}
 			delete particles[i];
@@ -68,11 +71,32 @@ void ofApp::mousePressed(int x, int y, int button) {
 }
 // --------------------------------------------------------------
 void ofApp::keyPressed(int key) {
+
+	// Rising (ya existente)
+	if (key == 'r') {
+		createRisingParticle();
+	}
+
+	// Spiral
+	if (key == '1') {
+		glm::vec2 pos(ofRandomWidth(), ofRandomHeight());
+		particles.push_back(new SpiralParticle(pos));
+	}
+
+	// Falling
+	if (key == '2') {
+		glm::vec2 pos(ofRandomWidth(), 0); // desde arriba
+		particles.push_back(new FallingParticle(pos));
+	}
+
+	// Muchas partículas (test)
 	if (key == ' ') {
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 100; i++) {
 			createRisingParticle();
 		}
 	}
+
+	// Screenshot
 	if (key == 's') {
 		ofSaveScreen("screenshot_" + ofToString(ofGetFrameNum()) + ".png");
 	}

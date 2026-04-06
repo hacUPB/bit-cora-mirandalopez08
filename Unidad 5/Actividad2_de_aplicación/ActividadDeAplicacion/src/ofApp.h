@@ -52,6 +52,78 @@ public:
 	glm::vec2 getPosition() const override { return position; }
 	ofColor getColor() const override { return color; }
 };
+
+class SpiralParticle : public Particle {
+private:
+	glm::vec2 center;
+	float angle;
+	float radius;
+	float angularSpeed;
+	float radialSpeed;
+	float lifetime;
+	float age;
+	ofColor color;
+
+public:
+	SpiralParticle(const glm::vec2& c)
+		: center(c), angle(0), radius(5),
+		angularSpeed(ofRandom(2, 5)),
+		radialSpeed(ofRandom(20, 40)),
+		lifetime(ofRandom(1.5, 3.0)),
+		age(0) {
+		color.setHsb(ofRandom(255), 200, 255);
+	}
+
+	void update(float dt) override {
+		angle += angularSpeed * dt;
+		radius += radialSpeed * dt;
+		age += dt;
+	}
+
+	void draw() override {
+		glm::vec2 pos = center + glm::vec2(cos(angle), sin(angle)) * radius;
+		ofSetColor(color);
+		ofDrawCircle(pos, 4);
+	}
+
+	bool isDead() const override {
+		return age >= lifetime;
+	}
+};
+
+class FallingParticle : public Particle {
+private:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	float age;
+	float lifetime;
+	ofColor color;
+
+public:
+	FallingParticle(const glm::vec2& pos)
+		: position(pos),
+		velocity(ofRandom(-50, 50), ofRandom(-200, -100)),
+		age(0),
+		lifetime(ofRandom(2.0, 4.0)) {
+		color.setHsb(ofRandom(255), 180, 255);
+	}
+
+	void update(float dt) override {
+		velocity.y += 9.8f * 50 * dt; // gravedad
+		position += velocity * dt;
+		age += dt;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, 6);
+	}
+
+	bool isDead() const override {
+		return age >= lifetime || position.y > ofGetHeight();
+	}
+};
+
 // -------------------------------------------------
 // Clase base para explosiones: ExplosionParticle
 // -------------------------------------------------
@@ -136,6 +208,29 @@ public:
 			ofDrawLine(xOuter, yOuter, xInner, yInner);
 		}
 		ofPopMatrix();
+	}
+};
+
+class RingExplosion : public ExplosionParticle {
+private:
+	float expansionRate;
+
+public:
+	RingExplosion(const glm::vec2& pos, const ofColor& col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.2f, 5),
+		expansionRate(ofRandom(80, 150)) {
+	}
+
+	void update(float dt) override {
+		ExplosionParticle::update(dt);
+		size += expansionRate * dt; // el radio crece
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofNoFill();
+		ofDrawCircle(position, size);
+		ofFill();
 	}
 };
 // -------------------------------------------------
