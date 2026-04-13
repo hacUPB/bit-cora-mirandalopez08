@@ -154,7 +154,7 @@ void ofApp::setup() {
 	for (int i = 0; i < 100; ++i) {
 		Particle* p = ParticleFactory::createParticle("star");
 		particles.push_back(p);
-		addObserver(p);
+		//addObserver(p);
 	}
 	for (int i = 0; i < 5; ++i) {
 		Particle* p = ParticleFactory::createParticle("shooting_star");
@@ -164,7 +164,7 @@ void ofApp::setup() {
 	for (int i = 0; i < 10; ++i) {
 		Particle* p = ParticleFactory::createParticle("planet");
 		particles.push_back(p);
-		//addObserver(p);
+		addObserver(p);
 	}
 }
 void ofApp::update() {
