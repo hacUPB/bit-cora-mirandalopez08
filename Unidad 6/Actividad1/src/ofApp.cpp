@@ -140,8 +140,8 @@ Particle* ParticleFactory::createParticle(const std::string& type) {
 		particle->color = ofColor(0, 0, 255);
 	}
 	else if (type == "MilkyWay") {
-		particle->size = ofRandom (4.0f, 7.0f);
-		particle->color = ofColor(112, 0, 112);
+		particle->size = ofRandom (10.0f, 12.0f);
+		particle->color = ofColor(0, 112, 112);
 	}
 	return particle;
 }
