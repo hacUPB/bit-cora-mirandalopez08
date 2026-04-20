@@ -139,6 +139,10 @@ Particle* ParticleFactory::createParticle(const std::string& type) {
 		particle->size = ofRandom(5.0f, 8.0f);
 		particle->color = ofColor(0, 0, 255);
 	}
+	else if (type == "MilkyWay") {
+		particle->size = ofRandom (4.0f, 7.0f);
+		particle->color = ofColor(112, 0, 112);
+	}
 	return particle;
 }
 ofApp::~ofApp() {
@@ -150,11 +154,11 @@ ofApp::~ofApp() {
 }
 void ofApp::setup() {
 	ofBackground(0);
-	particles.reserve(100 + 5 + 10);
+	particles.reserve(100 + 5 + 10 + 25);
 	for (int i = 0; i < 100; ++i) {
 		Particle* p = ParticleFactory::createParticle("star");
 		particles.push_back(p);
-		//addObserver(p);
+		addObserver(p);
 	}
 	for (int i = 0; i < 5; ++i) {
 		Particle* p = ParticleFactory::createParticle("shooting_star");
@@ -165,6 +169,11 @@ void ofApp::setup() {
 		Particle* p = ParticleFactory::createParticle("planet");
 		particles.push_back(p);
 		addObserver(p);
+	}
+	for (int i = 0; i < 20; ++i) {
+		Particle* p = ParticleFactory::createParticle("MilkyWay");
+		particles.push_back(p);
+		//addObserver(p);
 	}
 }
 void ofApp::update() {
